@@ -1,0 +1,1305 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap');
+
+:root {
+   --main-color: #2980b9;
+   --orange: #f39c12;
+   --red: #e74c3c;
+   --black: #444;
+   --white: #fff;
+   --light-color: #777;
+   --light-bg: #f5f5f5;
+   --border: .2rem solid var(--black);
+   --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+}
+
+* {
+   font-family: 'Nunito', sans-serif;
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   outline: none;
+   border: none;
+   text-decoration: none;
+}
+
+*::selection {
+   background-color: var(--main-color);
+   color: var(--white);
+}
+
+::-webkit-scrollbar {
+   height: .5rem;
+   width: 1rem;
+}
+
+::-webkit-scrollbar-track {
+   background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+   background-color: var(--main-color);
+}
+
+html {
+   font-size: 62.5%;
+   overflow-x: hidden;
+}
+
+body {
+   background-color: var(--light-bg);
+   /* padding-bottom: 10rem; */
+}
+
+hr {
+   margin-top: 12px;
+   width: 100%;
+   height: 4px;
+   background: #cccccc;
+}
+
+section {
+   padding: 2rem;
+   max-width: 1200px;
+   margin: 0 auto;
+}
+
+table {
+   width: 100%;
+   border-collapse: collapse;
+   margin: 20px 0;
+   font-size: 16px;
+   text-align: left;
+}
+
+th, td {
+   padding: 12px 15px;
+   border: 1px solid #ddd;
+}
+
+th {
+   background-color: #f4f4f4;
+   font-weight: bold;
+   color: #333;
+}
+
+tr:nth-child(even) {
+   background-color: #f9f9f9;
+}
+
+tr:hover {
+   background-color: #f1f1f1;
+}
+
+.error {
+   color: rgb(235, 46, 46);
+   font-size: 17px;
+}
+
+.heading {
+   font-size: 4rem;
+   color: var(--black);
+   margin-bottom: 2rem;
+   text-align: center;
+   text-transform: uppercase;
+}
+
+.btn,
+.btn-seller,
+.btn-admin,
+.delete-btn,
+.option-btn {
+   display: block;
+   width: 100%;
+   margin-top: 1rem;
+   border-radius: .5rem;
+   padding: 1rem 3rem;
+   font-size: 1.7rem;
+   text-transform: capitalize;
+   color: var(--white);
+   cursor: pointer;
+   text-align: center;
+   transition: background-color 0.3s;
+}
+
+.btn-seller,
+.btn-admin,
+.btn {
+   background-color: var(--main-color);
+}
+
+.btn:hover,
+.btn-seller:hover,
+.btn-admin:hover,
+.delete-btn:hover,
+.option-btn:hover {
+   background-color: var(--black);
+}
+
+.option-btn {
+   background-color: var(--orange);
+}
+
+.delete-btn {
+   background-color: var(--red);
+}
+
+.flex-btn {
+   display: flex;
+   gap: 1rem;
+}
+
+.form-select {
+   width: 100%;
+   padding: 0.8rem 1rem;
+   border-radius: 0.5rem;
+   border: var(--border);
+   background-color: var(--white);
+   font-size: 1.6rem;
+   color: var(--black);
+   margin-bottom: 1rem;
+   box-shadow: var(--box-shadow);
+   transition: border-color 0.3s;
+}
+
+.form-select:hover,
+.form-select:focus {
+   border-color: var(--main-color);
+   box-shadow: 0 0.5rem 1.2rem rgba(0, 0, 0, 0.15);
+   outline: none;
+}
+
+.form-option {
+   padding: 0.5rem;
+   background-color: var(--white);
+   color: var(--black);
+   font-size: 1.4rem;
+}
+
+
+.message {
+   position: fixed;
+   margin: 0 auto;
+   max-width: 1200px;
+   display: flex;
+   align-items: center;
+   padding: 2rem;
+   gap: 1.5rem;
+   z-index: 10000;
+   justify-content: space-between;
+   border-radius: 4px;
+   animation: slideIn 1.2s ease forwards;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   /* Thêm shadow chung */
+   background-color: #fff;
+   color: #333;
+   border-left: 15px solid;
+}
+
+.message .toast {
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   max-width: 1200px;
+   width: 100%;
+   gap: 8px;
+
+}
+
+/* Màu sắc và kiểu dáng cho từng loại thông báo */
+.message.success {
+   border-color: #47d864;
+}
+
+.message.success .toast i {
+   color: #47d864;
+}
+
+.message.failed {
+   border-color: #ff623d;
+}
+
+.message.failed .toast i {
+   color: #ff623d;
+}
+
+.message.warning {
+   border-color: #f0c419;
+}
+
+.message.warning .toast i {
+   color: #f0c419;
+}
+
+@keyframes slideIn {
+   0% {
+      right: 0;
+      opacity: 0;
+   }
+
+   100% {
+      right: 2%;
+      opacity: 1;
+   }
+}
+
+.message p {
+   font-size: 1.6rem;
+}
+
+/* Icon close */
+.message i {
+   font-size: 2rem;
+}
+
+/* Hiệu ứng slideOut khi ẩn */
+@keyframes slideOut {
+   0% {
+      right: 2%;
+      opacity: 1;
+   }
+
+   100% {
+      right: 0;
+      opacity: 0;
+   }
+}
+
+
+.empty {
+   padding: 1.5rem;
+   background-color: var(--white);
+   border: var(--border);
+   box-shadow: var(--box-shadow);
+   text-align: center;
+   color: var(--red);
+   border-radius: .5rem;
+   font-size: 2rem;
+   text-transform: capitalize;
+}
+
+@keyframes fadeIn {
+   0% {
+      transform: translateY(1rem);
+   }
+}
+
+.form-container {
+   min-height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.form-container form {
+   padding: 2rem;
+   text-align: center;
+   box-shadow: var(--box-shadow);
+   background-color: var(--white);
+   border-radius: .5rem;
+   width: 50rem;
+   border: var(--border);
+}
+
+.form-container form h3 {
+   text-transform: uppercase;
+   color: var(--black);
+   margin-bottom: 1rem;
+   font-size: 2.5rem;
+}
+
+.form-container form p {
+   font-size: 1.8rem;
+   color: var(--light-color);
+   margin-bottom: 1rem;
+   border-radius: .5rem;
+}
+
+.form-container form p span {
+   color: var(--orange);
+}
+
+.form-container form .box {
+   width: 100%;
+   margin: 1rem 0;
+   border-radius: .5rem;
+   background-color: var(--light-bg);
+   padding: 1.4rem;
+   font-size: 1.8rem;
+   color: var(--black);
+}
+
+.header {
+   position: sticky;
+   top: 0;
+   left: 0;
+   right: 0;
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   z-index: 1000;
+}
+
+.header .flex {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   position: relative;
+}
+
+.header .flex .logo {
+   font-size: 2.5rem;
+   color: var(--black);
+}
+
+.header .flex .logo span {
+   color: var(--main-color);
+}
+
+.header .flex .navbar a {
+   margin: 0 1rem;
+   font-size: 2rem;
+   color: var(--black);
+}
+
+.header .flex .navbar a:hover {
+   color: var(--main-color);
+   text-decoration: underline;
+}
+
+.header .flex .icons div {
+   margin-left: 1.7rem;
+   font-size: 2.5rem;
+   cursor: pointer;
+   color: var(--black);
+}
+
+.header .flex .icons div:hover {
+   color: var(--main-color);
+}
+
+.header .flex .profile {
+   position: absolute;
+   top: 120%;
+   right: 2rem;
+   background-color: var(--white);
+   border-radius: .5rem;
+   box-shadow: var(--box-shadow);
+   border: var(--border);
+   padding: 2rem;
+   width: 30rem;
+   padding-top: 1.2rem;
+   display: none;
+   animation: fadeIn .2s linear;
+}
+
+.header .flex .profile.active {
+   display: inline-block;
+}
+
+.header .flex .profile p {
+   text-align: center;
+   color: var(--black);
+   font-size: 2rem;
+   margin-bottom: 1rem;
+}
+
+#menu-btn {
+   display: none;
+}
+
+.dashboard .box-container {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
+   gap: 1.5rem;
+   justify-content: center;
+   align-items: flex-start;
+}
+
+.dashboard .box-container .box {
+   padding: 2rem;
+   text-align: center;
+   border: var(--border);
+   box-shadow: var(--box-shadow);
+   border-radius: .5rem;
+   background-color: var(--white);
+}
+
+.dashboard .box-container .box h3 {
+   font-size: 2.7rem;
+   color: var(--black);
+}
+
+.dashboard .box-container .box h3 span {
+   font-size: 2rem;
+}
+
+.dashboard .box-container .box p {
+   padding: 1.3rem;
+   border-radius: .5rem;
+   background-color: var(--light-bg);
+   font-size: 1.7rem;
+   color: var(--light-color);
+   margin: 1rem 0;
+}
+
+.add-partners form,
+.add-products form {
+   max-width: 70rem;
+   margin: 0 auto;
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   border: var(--border);
+   border-radius: .5rem;
+   padding: 2rem;
+}
+
+.add-partners form .flex,
+.add-products form .flex {
+   display: flex;
+   gap: 1.5rem;
+   flex-wrap: wrap;
+}
+
+.add-partners form .flex .inputBox,
+.add-products form .flex .inputBox {
+   flex: 1 1 25rem;
+}
+
+
+.add-products form .flex .inputBox .select {
+   margin-bottom: .5rem;
+   width: 100%;
+   margin-top: 1.5rem;
+   padding: 1rem;
+   font-size: 1.8rem;
+   color: var(--black);
+   border-radius: .5rem;
+   border: var(--border);
+}
+
+.add-partners form span,
+.add-products form span {
+   font-size: 1.7rem;
+   color: var(--light-color);
+}
+
+.add-partners form .box,
+.add-products form .box {
+   font-size: 1.8rem;
+   background-color: var(--light-bg);
+   border-radius: .5rem;
+   padding: 1.4rem;
+   width: 100%;
+   margin-top: 1.5rem;
+}
+
+.add-products form textarea {
+   height: 5.4rem;
+   resize: none;
+}
+
+
+.show-products .box-container {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, 33rem);
+   gap: 1.5rem;
+   justify-content: center;
+   align-items: flex-start;
+}
+
+.show-products .box-container .box {
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   border-radius: .5rem;
+   border: var(--border);
+   padding: 2rem;
+}
+
+.show-products .box-container .box img {
+   width: 100%;
+   height: 20rem;
+   object-fit: contain;
+   margin-bottom: 1.5rem;
+}
+
+.show-products .box-container .box .name {
+   font-size: 2rem;
+   color: var(--black);
+   white-space: nowrap;
+   /* Không xuống dòng */
+   overflow: hidden;
+   /* Ẩn phần vượt quá kích thước khung */
+   text-overflow: ellipsis;
+}
+
+.show-products .box-container .box .price {
+   font-size: 2rem;
+   color: var(--main-color);
+   margin: .5rem 0;
+}
+
+.show-products .box-container .box .category {
+   font-size: 2rem;
+   color: var(--light-color);
+   margin: .5rem 0;
+}
+
+.show-products .box-container .box .details {
+   font-size: 1.5rem;
+   color: var(--light-color);
+   line-height: 2;
+   width: 100%;
+   overflow: hidden;
+}
+
+.show-products .box-container .box .details .details-content {
+   display: block;
+   white-space: nowrap;
+   /* Không xuống dòng */
+   overflow: hidden;
+   /* Ẩn nội dung vượt quá */
+   text-overflow: ellipsis;
+   /* Thêm dấu ba chấm khi nội dung quá dài */
+   max-width: 500ch;
+   /* Giới hạn chiều dài nội dung đến 300 ký tự */
+}
+
+.update-product form {
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   border-radius: .5rem;
+   border: var(--border);
+   padding: 2rem;
+   max-width: 50rem;
+   margin: 0 auto;
+}
+
+.update-product form .image-container {
+   margin-bottom: 2rem;
+}
+
+.update-product form .image-container .main-image img {
+   height: 20rem;
+   width: 100%;
+   object-fit: contain;
+}
+
+.update-product form .image-container .sub-image {
+   display: flex;
+   gap: 1rem;
+   justify-content: center;
+   margin: 1rem 0;
+}
+
+.update-product form .image-container .sub-image img {
+   height: 5rem;
+   width: 7rem;
+   object-fit: contain;
+   padding: .5rem;
+   border: var(--border);
+   cursor: pointer;
+   transition: .2s linear;
+}
+
+.update-product form .image-container .sub-image img:hover {
+   transform: scale(1.1);
+}
+
+.update-product form .box {
+   width: 100%;
+   border-radius: .5rem;
+   padding: 1.4rem;
+   font-size: 1.8rem;
+   color: var(--black);
+   background-color: var(--light-bg);
+   margin: 1rem 0;
+}
+
+.update-product form .box .select {
+   margin-bottom: .5rem;
+   width: 100%;
+   margin-top: 1.5rem;
+   padding: 1rem;
+   font-size: 1.8rem;
+   color: var(--black);
+   border-radius: .5rem;
+   border: var(--border);
+}
+
+.update-product form p,
+.update-product form span {
+   font-size: 1.7rem;
+   color: var(--light-color);
+}
+
+.update-product form textarea {
+   height: 15rem;
+   resize: none;
+}
+
+.pagination {
+   margin-top: 1.8rem;
+   width: 100%;
+   text-align: center;
+}
+
+.pagination a {
+   padding: 8px 12px;
+   margin: 0 5px;
+   background-color: #f0f0f0;
+   text-decoration: none;
+   color: #333;
+   border-radius: 5px;
+   font-size: 1.6rem;
+}
+
+.pagination a.active {
+   background-color: #2686b4;
+   color: #fff;
+}
+
+.pagination a.prev-btn,
+.pagination a.next-btn {
+   font-weight: bold;
+}
+
+.orders .box-container {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, 33rem);
+   gap: 1.5rem;
+   align-items: flex-start;
+   justify-content: center;
+}
+
+.orders .box-container .box {
+   padding: 2rem;
+   padding-top: 1rem;
+   border-radius: .5rem;
+   border: var(--border);
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+}
+
+.orders .box-container .box p {
+   line-height: 1.5;
+   font-size: 2rem;
+   color: var(--light-color);
+   margin: 1rem 0;
+}
+
+.orders .box-container .box p span {
+   color: var(--main-color);
+}
+
+.orders .box-container .select {
+   margin-bottom: .5rem;
+   width: 100%;
+   background-color: var(--light-bg);
+   padding: 1rem;
+   font-size: 1.8rem;
+   color: var(--black);
+   border-radius: .5rem;
+   border: var(--border);
+}
+
+.accounts .box-container {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, 33rem);
+   gap: 1.5rem;
+   align-items: flex-start;
+   justify-content: center;
+}
+
+.accounts .box-container .box {
+   padding: 2rem;
+   padding-top: .5rem;
+   border-radius: .5rem;
+   text-align: center;
+   border: var(--border);
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+}
+
+.accounts .box-container .box p {
+   font-size: 2rem;
+   color: var(--light-color);
+   margin: 1rem 0;
+}
+
+.accounts .box-container .box p span {
+   color: var(--main-color);
+}
+
+.contacts .box-container {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, 33rem);
+   gap: 1.5rem;
+   align-items: flex-start;
+   justify-content: center;
+}
+
+.contacts .box-container .box {
+   padding: 2rem;
+   padding-top: 1rem;
+   border-radius: .5rem;
+   border: var(--border);
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+}
+
+.contacts .box-container .box p {
+   line-height: 1.5;
+   font-size: 2rem;
+   color: var(--light-color);
+   margin: 1rem 0;
+}
+
+.contacts .box-container .box p span {
+   color: var(--main-color);
+}
+
+/* Styles for the options page */
+.options-container {
+   display: flex;
+   justify-content: space-between;
+   padding: 20px;
+   gap: 20px;
+}
+
+.options-column {
+   width: 30%;
+   background-color: #fff;
+   border-radius: 8px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   padding: 20px;
+   box-sizing: border-box;
+}
+
+.options-column h2 {
+   font-size: 1.8rem;
+   margin-bottom: 20px;
+   color: #333;
+   text-align: center;
+}
+
+.options-form {
+   display: flex;
+   flex-direction: column;
+   font-family: Arial, sans-serif;
+}
+
+.options-form .input-box {
+   margin-bottom: 15px;
+}
+
+.options-form .input-box label {
+   font-size: 1.6rem;
+}
+
+.options-form input[type="number"],
+.options-form input[type="text"] {
+   width: 100%;
+   margin-bottom: 10px;
+   padding: 10px;
+   border: 1px solid #ddd;
+   border-radius: 4px;
+   font-size: 1.8rem;
+   color: var(--light-color);
+}
+
+.options-form input[type="submit"] {
+   background-color: #007bff;
+   border: none;
+   border-radius: 4px;
+   color: #fff;
+   padding: 10px;
+   font-size: 1.8rem;
+   cursor: pointer;
+   transition: background-color 0.3s ease;
+}
+
+.options-form input[type="submit"]:hover {
+   background-color: #0056b3;
+}
+
+/* Slider Container */
+.slider-container {
+   width: 100%;
+   max-width: 1200px;
+   margin: 0 auto;
+   padding: 20px;
+   position: relative;
+   overflow: hidden;
+   /* Set a specific height for the container if necessary */
+   height: 400px;
+   /* Adjust the height as needed */
+}
+
+/* Swiper Wrapper */
+.swiper-wrapper {
+   display: flex;
+   flex-wrap: nowrap;
+   height: 100%;
+   /* Make sure the wrapper takes the full height of the container */
+}
+
+/* Swiper Slide */
+.swiper-slide {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   background-color: #f8f8f8;
+   border-radius: 10px;
+   padding: 20px;
+   text-align: center;
+   height: 100%;
+   /* Make sure each slide takes the full height of the wrapper */
+}
+
+/* Slide Image */
+.slide-image img {
+   width: 100%;
+   max-width: 300px;
+   height: auto;
+   border-radius: 10px;
+   margin-bottom: 15px;
+}
+
+/* Slide Content */
+.slide-content h3 {
+   font-size: 1.8rem;
+   color: #333;
+   margin-bottom: 10px;
+   text-transform: capitalize;
+}
+
+.slide-content p {
+   font-size: 1.6rem;
+   color: #ff4500;
+   margin-bottom: 10px;
+}
+
+
+/* Slider Container */
+.slider {
+   width: 100%;
+   max-width: 1200px;
+   margin: 0 auto;
+   padding: 20px;
+   position: relative;
+   text-align: center;
+}
+
+.slider h1 {
+   font-size: 2.4rem;
+   color: #333;
+   margin-bottom: 20px;
+}
+
+/* Swiper Container */
+.swiper-container {
+   width: 100%;
+   height: 400px;
+   /* Adjust height as needed */
+   position: relative;
+}
+
+/* Swiper Wrapper */
+.swiper-wrapper {
+   display: flex;
+   height: 100%;
+}
+
+/* Swiper Slide */
+.swiper-slide {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   background-color: #f8f8f8;
+   border-radius: 10px;
+   padding: 20px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   text-align: center;
+   height: 100%;
+}
+
+/* Slide Image */
+.slide-image img {
+   width: 100%;
+   max-width: 300px;
+   height: auto;
+   border-radius: 10px;
+   margin-bottom: 15px;
+}
+
+/* Slide Content */
+.slide-content h3 {
+   font-size: 1.8rem;
+   color: #333;
+   margin-bottom: 10px;
+   text-transform: capitalize;
+}
+
+.slide-content p {
+   font-size: 1.6rem;
+   color: #ff4500;
+   margin-bottom: 10px;
+}
+
+.update-btn {
+   background-color: #007bff;
+   color: #fff;
+   border: none;
+   border-radius: 5px;
+   padding: 10px 15px;
+   font-size: 1.6rem;
+   cursor: pointer;
+   transition: background-color 0.3s;
+}
+
+.update-btn:hover {
+   background-color: #0056b3;
+}
+
+/* CSS cho form cập nhật slider */
+
+.update-slider-form {
+   width: 100%;
+   max-width: 800px;
+   margin: 20px auto;
+   padding: 20px;
+   background-color: #f8f8f8;
+   border-radius: 8px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.update-slider-form h2 {
+   font-size: 2rem;
+   color: #333;
+   margin-bottom: 20px;
+   text-align: center;
+}
+
+.update-slider-form form {
+   display: flex;
+   flex-direction: column;
+}
+
+.update-slider-form .input-box {
+   margin-bottom: 20px;
+}
+
+.update-slider-form .input-box label {
+   display: block;
+   font-size: 1.6rem;
+   color: #333;
+   margin-bottom: 5px;
+}
+
+.update-slider-form .input-box input[type="text"],
+.update-slider-form .input-box input[type="number"] {
+   width: 100%;
+   padding: 10px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   font-size: 1.6rem;
+   color: #333;
+}
+
+.update-slider-form .input-box input[type="file"] {
+   padding: 5px 0;
+}
+
+.update-slider-form .input-box img {
+   display: block;
+   max-width: 100%;
+   height: auto;
+   margin-top: 10px;
+   border-radius: 4px;
+}
+
+.update-slider-form .input-box .error {
+   color: red;
+   font-size: 0.9rem;
+   margin-top: 5px;
+}
+
+.update-slider-form input[type="submit"] {
+   padding: 10px 20px;
+   font-size: 1.6rem;
+   border-radius: 5px;
+   color: #fff;
+   background-color: #ff4500;
+   border: none;
+   cursor: pointer;
+   transition: background-color 0.3s;
+   align-self: center;
+}
+
+.update-slider-form input[type="submit"]:hover {
+   background-color: #e63900;
+}
+
+/* Nút Quay lại */
+.go-back {
+   width: 100%;
+   margin: 0 auto;
+   text-align: center;
+}
+
+.btn-back {
+   padding: 10px 20px;
+   background-color: #007bff;
+   /* Màu nền xanh */
+   color: #fff;
+   text-decoration: none;
+   border-radius: 5px;
+   font-size: 1.6rem;
+   transition: background-color 0.3s;
+   margin-top: 20px;
+   /* Khoảng cách từ form */
+   display: inline-block;
+}
+
+.btn-back:hover {
+   background-color: #0056b3;
+   /* Màu nền xanh đậm hơn khi hover */
+}
+
+/* Phần dành riêng cho section discount */
+.discount-section {
+   padding: 2rem;
+   background-color: #eeeeee;
+   border-radius: 8px;
+   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+   /* Đổ bóng rõ hơn */
+   max-width: 800px;
+   margin: 2.4rem auto;
+}
+
+.discount-section h1.heading {
+   text-align: center;
+   font-size: 24px;
+   margin-bottom: 20px;
+}
+
+.discount-flex {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 20px;
+}
+
+.discount-inputBox {
+   width: 100%;
+   margin-bottom: 15px;
+}
+
+.discount-inputBox span {
+   display: block;
+   font-size: 18px;
+   margin-bottom: 8px;
+}
+
+/* Styling cho các ô input trong form */
+.discount-box {
+   width: 100%;
+   padding: 10px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   font-size: 16px;
+}
+
+/* Styling cho checkbox */
+.discount-checkbox-container {
+   display: flex;
+   align-items: center;
+}
+
+.discount-checkbox-container input[type="checkbox"] {
+   width: auto;
+   margin-right: 10px;
+}
+
+.discount-checkbox-container label {
+   font-size: 16px;
+}
+
+/* Nút submit */
+.discount-btn {
+   background-color: #4CAF50;
+   color: white;
+   padding: 10px 20px;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   font-size: 18px;
+   display: block;
+   margin: 0 auto;
+   width: 200px;
+   text-align: center;
+}
+
+.discount-btn:hover {
+   background-color: #45a049;
+}
+
+/* Styling cho nút tạo mã giảm giá */
+.generate-btn {
+   background-color: #007bff;
+   /* Màu xanh lam tươi sáng */
+   color: white;
+   padding: 10px 20px;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   font-size: 16px;
+   margin-left: 10px;
+   display: inline-block;
+   text-align: center;
+   margin-top: 14px;
+}
+
+.generate-btn:hover {
+   background-color: #0056b3;
+   /* Màu xanh đậm hơn khi hover */
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.generate-btn:focus {
+   outline: none;
+   box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+   /* Hiệu ứng focus */
+}
+
+
+/*placed orders*/
+
+.order-box-container {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 20px;
+   justify-content: space-between;
+}
+
+.order-box {
+   width: calc(50% - 20px);
+   /* Chia làm 2 cột */
+   background-color: #fff;
+   padding: 20px;
+   border-radius: 10px;
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+   margin-bottom: 20px;
+}
+
+.order-box p {
+   font-size: 1.6rem;
+   margin-bottom: 10px;
+   color: #333;
+}
+
+.order-box p span {
+   font-weight: bold;
+}
+
+.order-box form {
+   margin-top: 20px;
+}
+
+.order-box select {
+   width: 100%;
+   padding: 10px;
+   margin-bottom: 10px;
+}
+
+.order-box label {
+   font-size: 1.6rem;
+   font-weight: bold;
+   display: block;
+   margin-bottom: 0.5rem;
+}
+
+.user-container {
+   background-color: #fff;
+   border: 1px solid #ddd;
+   border-radius: 8px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   padding: 20px;
+   margin: 20px 0;
+}
+
+
+/* Media screen */
+@media (max-width:991px) {
+
+   html {
+      font-size: 55%;
+   }
+
+}
+
+@media (max-width:768px) {
+
+   #menu-btn {
+      display: inline-block;
+   }
+
+   .header .flex .navbar {
+      position: absolute;
+      top: 99%;
+      left: 0;
+      right: 0;
+      border-top: var(--border);
+      border-bottom: var(--border);
+      background-color: var(--white);
+      transition: .2s linear;
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+   }
+
+   .header .flex .navbar.active {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+   }
+
+   .header .flex .navbar a {
+      display: block;
+      margin: 2rem;
+   }
+
+}
+
+@media (max-width:450px) {
+
+   html {
+      font-size: 50%;
+   }
+
+   .heading {
+      font-size: 3.5rem;
+   }
+
+   .flex-btn {
+      flex-flow: column;
+      gap: 0;
+   }
+
+   .add-products form textarea {
+      height: 15rem;
+   }
+
+   .show-products .box-container {
+      grid-template-columns: 1fr;
+   }
+
+   .orders .box-container {
+      grid-template-columns: 1fr;
+   }
+
+   .accounts .box-container {
+      grid-template-columns: 1fr;
+   }
+
+   .contacts .box-container {
+      grid-template-columns: 1fr;
+   }
+
+}
