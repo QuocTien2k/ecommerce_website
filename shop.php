@@ -28,11 +28,11 @@ if (isset($_POST['add_to_cart'])) {
       }
    }
 }
-if(isset($_POST['add_to_wishlist'])){
+if (isset($_POST['add_to_wishlist'])) {
    if ($user_id == '') {
       header('location:user_login.php');
       exit();
-   }else{
+   } else {
       include 'components/wishlist_cart.php';
    }
 }
@@ -64,11 +64,29 @@ if(isset($_POST['add_to_wishlist'])){
 
       <h1 class="heading">Mua sắm</h1>
 
-      <div class="box-container">
+      <?php
+      // Nhận số trang từ yêu cầu AJAX hoặc từ URL khi tải trang lần đầu
+      $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+      $products_per_page = 6; // Số sản phẩm trên mỗi trang
+      $offset = ($page - 1) * $products_per_page;
 
+      // Lấy tổng số sản phẩm từ cơ sở dữ liệu
+      $total_products_query = $conn->prepare("SELECT COUNT(*) FROM `products`");
+      $total_products_query->execute();
+      $total_products = $total_products_query->fetchColumn();
+      $total_pages = ceil($total_products / $products_per_page);
+
+      // Truy vấn sản phẩm theo trang hiện tại
+      $select_products = $conn->prepare("SELECT product_categories.name as cate_name, products.* FROM `products` 
+INNER JOIN product_categories ON products.category_id = product_categories.id LIMIT :limit OFFSET :offset");
+
+      $select_products->bindParam(':limit', $products_per_page, PDO::PARAM_INT);
+      $select_products->bindParam(':offset', $offset, PDO::PARAM_INT);
+      $select_products->execute();
+      ?>
+
+      <div class="box-container">
          <?php
-         $select_products = $conn->prepare("SELECT * FROM `products`");
-         $select_products->execute();
          if ($select_products->rowCount() > 0) {
             while ($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)) {
                $price = (float)$fetch_product['price'];
@@ -86,37 +104,77 @@ if(isset($_POST['add_to_wishlist'])){
                   <div class="flex">
                      <div class="price"><?= $price; ?><span> vnđ</span></div>
                      <input type="number" name="qty" class="qty" onkeypress="if(this.value.length == 2) return false;" value="1">
-                     <?php echo form_error('qty', $errors, '<span class="error" style="font-size: 16px; color: red;">', '</span>'); ?>
                   </div>
                   <input type="submit" value="Thêm vào giỏ hàng" class="btn-shopping" name="add_to_cart">
                </form>
          <?php
             }
          } else {
-            echo '<p class="empty">no products found!</p>';
+            echo '<p class="empty">Không có sản phẩm nào!</p>';
          }
          ?>
-
       </div>
 
+      <hr>
+
+      <!-- Phân trang -->
+      <div class="pagination">
+         <?php
+         // Hiển thị nút "Previous" nếu không ở trang đầu
+         if ($page > 1) {
+            echo '<a href="javascript:void(0)" data-page="' . ($page - 1) . '" class="prev-btn pagination-link">Trang trước</a>';
+         }
+
+         // Hiển thị số trang
+         for ($i = 1; $i <= $total_pages; $i++) {
+            echo '<a href="javascript:void(0)" data-page="' . $i . '" class="pagination-link ' . ($i == $page ? 'active' : '') . '">' . $i . '</a>';
+         }
+
+         // Hiển thị nút "Next" nếu không ở trang cuối
+         if ($page < $total_pages) {
+            echo '<a href="javascript:void(0)" data-page="' . ($page + 1) . '" class="next-btn pagination-link">Trang sau</a>';
+         }
+         ?>
+      </div>
+
+
    </section>
-
-
-
-
-
-
-
-
-
-
-
-
 
    <?php include 'components/footer.php'; ?>
 
    <script src="js/script.js?version=<?php echo rand(); ?>"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <script>
+      $(document).ready(function() {
+         // Bắt sự kiện click vào các liên kết phân trang
+         $('.pagination').on('click', '.pagination-link', function(e) {
+            e.preventDefault(); // Ngăn chặn load lại trang
 
+            var page = $(this).data('page'); // Lấy số trang từ thuộc tính data-page
+
+            // Gọi AJAX để lấy dữ liệu của trang tương ứng
+            $.ajax({
+               url: window.location.href, // Gọi lại chính trang hiện tại
+               type: 'GET',
+               data: {
+                  page: page
+               }, // Gửi số trang lên server
+               success: function(response) {
+                  // Chỉ lấy phần nội dung chính, không tải lại toàn bộ trang
+                  var newContent = $(response).find('.box-container').html();
+                  $('.box-container').html(newContent); // Cập nhật nội dung
+
+                  // Cập nhật phần phân trang mới nếu có
+                  var newPagination = $(response).find('.pagination').html();
+                  $('.pagination').html(newPagination);
+               },
+               error: function(xhr, status, error) {
+                  console.error("Lỗi khi tải dữ liệu: " + error);
+               }
+            });
+         });
+      });
+   </script>
 </body>
 
 </html>

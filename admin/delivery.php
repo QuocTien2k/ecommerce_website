@@ -156,7 +156,7 @@ if(isset($_GET['partner_id'])){
 
     <section class="show-products">
         <h1 class="heading">Đối tác đã thêm</h1>
-        <div class="swiper mySwiper">
+        <div class="swiper mySwiper" style="max-width: 800px;">
             <div class="swiper-wrapper">
                 <?php
                 // Truy vấn tất cả các đối tác vận chuyển từ bảng `delivery`
@@ -169,8 +169,8 @@ if(isset($_GET['partner_id'])){
                 // Sử dụng vòng lặp foreach để hiển thị từng logo
                 foreach ($partners as $partner) {
                     echo '<div class="swiper-slide">';
-                    echo '<img src="../uploaded_img/' . $partner['logo'] . '" alt="Logo">';
-                    echo '<a href="delete_partner.php?partner_id=' . $partner['id'] . '" class="delete-btn" onclick="return confirm(\'Bạn có chắc muốn xóa đối tác này?\');">Xóa</a>';
+                    echo '<img style="max-width: 50%; height: 150px; object-fit: contain;" src="../uploaded_img/' . $partner['logo'] . '" alt="Logo">';
+                    echo '<a href="delivery.php?partner_id=' . $partner['id'] . '" class="delete-btn" onclick="return confirm(\'Bạn có chắc muốn xóa đối tác này?\');">Xóa</a>';
                     echo '</div>';
                 }
 

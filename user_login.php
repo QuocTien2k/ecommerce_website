@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
          if (password_verify($pass, $row['password'])) {
             // Đăng nhập thành công
             $_SESSION['user_id'] = $row['id'];
-            header('location:home.php');
+            header('location:index.php');
             exit();
          } else {
             // Mật khẩu không đúng

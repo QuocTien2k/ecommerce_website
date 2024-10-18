@@ -46,14 +46,14 @@ if(!isset($admin_id)){
             $total_pendings = 0;
             $select_pendings = $conn->prepare("SELECT * FROM `orders` WHERE payment_status = ?");
             $select_pendings->execute(['pending']);
-            if($select_pendings->rowCount() > 0){
-               while($fetch_pendings = $select_pendings->fetch(PDO::FETCH_ASSOC)){
+            if ($select_pendings->rowCount() > 0) {
+               while ($fetch_pendings = $select_pendings->fetch(PDO::FETCH_ASSOC)) {
+                  // Cộng dồn giá trị của cột 'total_price' vào tổng
                   $total_pendings += $fetch_pendings['total_price'];
-                  $total_pendings = number_format($total_pendings, 0 , ',' , '.');
                }
             }
          ?>
-         <h3><span></span><?= $total_pendings; ?><span>vnđ</span></h3>
+         <h3><span></span><?= $total_pendings = number_format($total_pendings, 0, ',', '.');; ?><span>vnđ</span></h3>
          <p>Số đơn đang chờ</p>
          <a href="placed_orders.php" class="btn-admin">xem</a>
       </div>
@@ -65,12 +65,11 @@ if(!isset($admin_id)){
             $select_completes->execute(['completed']);
             if($select_completes->rowCount() > 0){
                while($fetch_completes = $select_completes->fetch(PDO::FETCH_ASSOC)){
-                  $total_completes += $fetch_completes['total_price'];
-                  $total_completes = number_format($total_completes, 0 , ',' , '.');
+                  $total_completes += $fetch_completes['total_price'];                  
                }
             }
          ?>
-         <h3><span></span><?= $total_completes; ?><span>vnđ</span></h3>
+         <h3><span></span><?= $total_completes = number_format($total_completes, 0 , ',' , '.');; ?><span>vnđ</span></h3>
          <p>Trạng thái đơn hàng</p>
          <a href="placed_orders.php" class="btn-admin">xem</a>
       </div>

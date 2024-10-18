@@ -41,7 +41,7 @@ if (isset($_SESSION['user_id'])) {
 
          <?php
          if ($user_id == '') {
-            echo '<p class="empty">Vui lòng đăng nhập!</p>';
+            header('location:user_login.php');
          } else {
             $select_orders = $conn->prepare("SELECT * FROM `orders` WHERE user_id = ?");
             $select_orders->execute([$user_id]);
@@ -72,31 +72,36 @@ if (isset($_SESSION['user_id'])) {
                      <p>Địa chỉ : <span><?= $address . ', ' . $ward . ', ' . $district . ', ' . $province; ?></span></p>
                      <p>Phương thức thanh toán : <span><?= $fetch_orders['method']; ?></span></p>
                      <p>Sản phẩm đã đặt : <span><?= $fetch_orders['total_products']; ?></span></p>
-                     <p>Tổng tiền : 
-                        <span><?= $price; ?> vnđ</span> 
-                        <?php if($fetch_orders['discount_code'] != ''){ echo '<span style="color: red"> (đã áp dụng mã giảm giá)</span>';} ?>
-                     </p>
                      <?php 
-                        if($fetch_orders['delivery_id'] != Null ){
-                           $select_delivery_name= $conn->prepare("SELECT delivery.name FROM orders INNER JOIN delivery ON orders.delivery_id = delivery.id");
-                           $select_delivery_name->execute([]);
-
-                           if($select_delivery_name->rowCount() >0){
-                              $delivery_name= $select_delivery_name->fetch(PDO::FETCH_ASSOC);
-                              echo '<p>Đơn vị vận chuyển: '.htmlspecialchars($delivery_name['name'], ENT_QUOTES).'</p>';
-                           }
+                        if($fetch_orders['discount_code']){
+                           echo '<p>Mã giảm giá đã áp dụng: <span>'.$fetch_orders['discount_code'].'</span></p>';
+                        }else{
+                           echo '<p>Mã giảm giá đã áp dụng: <span>Không mã giảm giá</span></p>';
                         }
-                     ?>
-
-                     <p>Trạng thới đơn hàng :
-                        <?php 
-                           if($fetch_orders['payment_status'] == 'đang chờ'){
-                              echo '<span style="red">'.$fetch_orders['payment_status'].'</span>';
-                           }else{
-                              echo '<span style="green">'.$fetch_orders['payment_status'].'</span>';
-                           }
-                        ?>
+                     ?>                     
+                     <p>Tổng tiền :
+                        <span><?= $price; ?> vnđ</span>
+                        <?php if ($fetch_orders['discount_code'] != '') {
+                           echo '<span style="color: red"> (đã áp dụng mã giảm giá)</span>';
+                        } ?>
                      </p>
+                     <?php
+                     if ($fetch_orders['delivery_id'] != Null) {
+                        $select_delivery_name = $conn->prepare("SELECT delivery.name FROM orders INNER JOIN delivery ON orders.delivery_id = delivery.id");
+                        $select_delivery_name->execute([]);
+
+                        if ($select_delivery_name->rowCount() > 0) {
+                           $delivery_name = $select_delivery_name->fetch(PDO::FETCH_ASSOC);
+                           echo '<p>Đơn vị vận chuyển: ' . htmlspecialchars($delivery_name['name'], ENT_QUOTES) . '</p>';
+                        }
+                     }
+                     if ($fetch_orders['payment_status'] == 'pending') {
+                        echo '<p>Trạng thái đơn hàng: <span style="color: red">đang chờ</span></p>';
+                     } else {
+                        echo '<p>Trạng thái đơn hàng: <span style="color: green">giao hàng thành công</span></p>';
+                     }
+
+                     ?>
                   </div>
          <?php
                }

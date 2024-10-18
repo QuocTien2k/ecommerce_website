@@ -25,8 +25,8 @@ if (isset($_POST['add_discount'])) {
         $errors['code']['required'] = 'Vui lòng ấn tạo mã!';
     }
 
-    if (!is_numeric($discount_amount) || $discount_amount < 0 || $discount_amount > 99) {
-        $errors['discount_amount']['invalid'] = 'Giá trị giảm phải nằm trong khoảng từ 0-99!';
+    if (!is_numeric($discount_amount) || $discount_amount < 0 || $discount_amount > 70) {
+        $errors['discount_amount']['invalid'] = 'Giá trị giảm phải nằm trong khoảng từ 0-70!';
     }
 
     if (!is_numeric($max_usage) || $max_usage < 1) {
@@ -117,7 +117,7 @@ if (isset($_POST['add_discount'])) {
         //random mã code
         function generateDiscountCode() {            
             //tạo tỷ lệ %
-            const discountPercent=Math.floor(Math.random() * 79) + 1;
+            const discountPercent=Math.floor(Math.random() * 69) + 1;
 
             //tạo mã giảm giá
             const discountCode= `FREESHIP ${discountPercent}%`;

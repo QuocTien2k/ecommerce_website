@@ -88,6 +88,7 @@ if (isset($_POST['add_product'])) {
 if (isset($_GET['delete'])) {
 
    $delete_id = $_GET['delete'];
+   
    $delete_product_image = $conn->prepare("SELECT * FROM `products` WHERE id = ?");
    $delete_product_image->execute([$delete_id]);
    $fetch_delete_image = $delete_product_image->fetch(PDO::FETCH_ASSOC);
